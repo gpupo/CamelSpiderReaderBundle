@@ -1,1 +1,59 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+{% block title %}Home Page - {% endblock %}
+
+{% block content %}
+<h1>Notícias</h1>
+
+<div class="tabs newsCollection">
+    <ul>
+        <li><a href="#tabs-1">Nome da categoria</a></li>
+    </ul>
+    <div id="tabs-1" class="accordion news">
+
+    {% set noticias = ['Bomba', 'Iraque', 'Tempo', 'Tecnologia', 'Agora', 'Fobia'] %}
+    {% set l = 0 %}
+    {% for n in noticias %}
+        {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'noticia': n,  'cicle': cycle(['even','odd'], l)} %}
+    {% set l = l+1 %}
+    {% endfor %}
+
+
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/jquery.ui.stars/jquery.ui.stars.js"></script>
+<link rel="stylesheet" href="/js/jquery.ui.stars/jquery.ui.stars.min.css"  type="text/css" media="all" />
+<script>
+
+jQuery(document).ready(function(){
+    $(".classificacao .stars .stars-wrapper").stars({
+        inputType: "select",
+        cancelShow: false,
+        callback: function(ui, type, value){
+            console.log("stars value:"+value);
+            news_id = ui.options.name.replace('vote_','');
+            console.log("News ID:"+news_id);
+            //Envia o voto para o controller
+            $.post("{{ path('stars_submit') }}", {vote:{rate: value, news_id: news_id}}, function(json)
+            {
+                if(json.responseCode == 200){
+                    //Recebe a média de votação da news
+                    average_select=".global .stars #form_vote_average_"+json.news_id+" .stars-wrapper";
+                    $(average_select).stars("select", json.average);
+                }
+            },'json');
+        }
+    });
+
+    $(".global .stars .stars-wrapper").stars({
+        inputType: "select",
+        disabled: true
+    });
+});
+</script>
+{% endblock %}
+
+
+
+

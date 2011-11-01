@@ -1,5 +1,5 @@
 GpupoCamelSpiderReaderBundle_homepage:
-    pattern:  /all
+    pattern:  /
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:index }
 
 GpupoCamelSpiderReaderBundle_folder:

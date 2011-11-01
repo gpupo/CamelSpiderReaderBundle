@@ -5,8 +5,7 @@ namespace Gpupo\CamelSpiderReaderBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
     public function indexAction()
     {
         return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig');
@@ -20,10 +19,10 @@ class DefaultController extends Controller
     public function getMenuAction($type)
     {
 
-        $collection = $this->doctrineRegistry
-            ->getRepository('GpupoCamelSpiderBundle:Subscription')
-            ->findByActiveSubscriptions();
+        $collection = $this->get('doctrine')
+            ->getRepository('GpupoCamelSpiderBundle:' . $type)
+            ->findForMenu();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:menu.html.twig', array('collection'=> $collection));
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:menu.html.twig', array('type' => $type, 'collection'=> $collection));
     }
 }
