@@ -13,7 +13,12 @@ class DefaultController extends Controller {
 
     public function folderAction($type, $id)
     {
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig');
+        $collection = $this->get('doctrine')
+            ->getRepository('GpupoCamelSpiderBundle:News')
+            ->findByType($type, $id);
+
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
     }
 
     public function getMenuAction($type)
