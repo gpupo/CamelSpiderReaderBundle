@@ -1,0 +1,3 @@
+GpupoCamelSpiderReaderBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:index }

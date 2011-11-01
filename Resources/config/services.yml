@@ -1,0 +1,7 @@
+parameters:
+#    gpupo_camel_spider_reader.example.class: Gpupo\CamelSpiderReaderBundle\Example
+
+services:
+#    gpupo_camel_spider_reader.example:
+#        class: %gpupo_camel_spider_reader.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
