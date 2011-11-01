@@ -1,3 +1,9 @@
 GpupoCamelSpiderReaderBundle_homepage:
-    pattern:  /hello/{name}
+    pattern:  /all
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:index }
+
+GpupoCamelSpiderReaderBundle_folder:
+    pattern:  /{type}/{id}
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:folder }
+
+
