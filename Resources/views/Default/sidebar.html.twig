@@ -1,0 +1,15 @@
+<div class="bar pull-right">
+    <a href="javascript:void(0)" class="toggle" title="Clique aqui para exibir/ocultar a barra lateral"><div class="">&nbsp;</div></a>
+</div>
+
+<div class="content ui-widget-content">
+    <h2 class="">Notícias</h2>
+    <div class="auto accordion">
+
+        <h3><a href="#">Categorias</a></h3>
+        <div>{% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Category'} %}</div>
+
+        <h3><a href="#">Fontes</a></h3>
+        <div>{% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Subscription'} %}</div>
+    </div>
+</div>
