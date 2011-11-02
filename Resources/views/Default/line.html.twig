@@ -1,33 +1,26 @@
 {% import 'GpupoGlessBundle::macros.html.twig' as Gless %}
 
-{% set id =  noticia  %}
-{% set text %}
-<p>O professor da Universidade de Haifa (Israel) e especialista em terrorismo Gabriel Weimann estimou que o Brasil deva se tornar um alvo preferencial de terrorismo. De acordo com o acadêmico, esta condição se deve à posição econômica cada vez mais privilegiada do País, ao fato de sediar grandes eventos esportivos e à sua exclusão social.</p>
-
-<p>"O Brasil tem populações frustradas e infelizes, alguns de seus cidadãos estão cheios de frustração e ódio porque se sentem alienados. É um território explorável pelas organizações terroristas, que recrutam pessoas deste perfil", disse Wimann. Ele citou a Copa do Mundo e as Olimpíadas, de cujas próximas edições o Brasil sede, em referência à ação de extremistas nos Jogos Olímpicos de Munique, na Alemanha, em 1972.</p>
-
-{% endset %}
-
-<h3 class="{{ cicle }}"><a href="#" class="title" id="id_{{ noticia }}">{{ noticia }}</a></h3>
-<div class="content id_{{ noticia }}">
+<h3 class="{{ cicle }} title"><a href="#" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
+<div class="content id_{{ news.id }}">
     <div class="share">
         {{ Gless.ButtonA('Imprimir', 'javascript:alert(\'Hello\')', {'icon': 'print', 'with_text': 'no'}) }}
         {{ Gless.ButtonA('Salvar', 'javascript:alert(\'Hello\')', {'icon': 'disk', 'with_text': 'no'}) }}
         {{ Gless.ButtonA('Enviar', 'javascript:alert(\'Hello\')', {'icon': 'mail-closed', 'with_text': 'no'}) }}
     </div>
     <div class="txt">
-    {{ text }}
+        {{ news.content|raw }}
+        <a href="javascript:$('.title #id_{{ news.id }}').trigger('click');void(0);" class="more" title="leia mais">...</a>
     </div>
 
     <div class="fonte">
-        <span class="label">Fonte:</span> <a href="http://terra.com.br" target="_blank">Terra Notícias</a>
+        <span class="label">Fonte:</span> <a href="{{ news.uri }}" target="_blank">{{ news.subscription.name }}</a>
     </div>
 {# Stars #}
     <div class="bar-footer">
         <div class="feedback"></div>
         <div>
-            <div class="classificacao">{% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': { 'id': id, 'action': path('stars_submit') } } %}</div>
-            <div class="global pull-right"> {% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': {'id': 'average_' ~ id, 'label':'Classificação Global'} } %} </div>
+            <div class="classificacao">{% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': { 'id': news.id, 'action': path('stars_submit'), 'value': 4 } } %}</div>
+            <div class="global pull-right"> {% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': {'id': 'average_' ~ news.id, 'label':'Classificação Global'} } %} </div>
         </div>
     </div>
 </div>

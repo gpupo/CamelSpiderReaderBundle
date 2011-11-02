@@ -11,10 +11,9 @@
     </ul>
     <div id="tabs-1" class="accordion news">
 
-    {% set noticias = ['Bomba', 'Iraque', 'Tempo', 'Tecnologia', 'Agora', 'Fobia'] %}
     {% set l = 0 %}
-    {% for n in noticias %}
-        {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'noticia': n,  'cicle': cycle(['even','odd'], l)} %}
+    {% for n in collection %}
+        {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'news': n,  'cicle': cycle(['even','odd'], l)} %}
     {% set l = l+1 %}
     {% endfor %}
 

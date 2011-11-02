@@ -6,6 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 class DefaultController extends Controller {
+
+
+    protected function getNewsRepository()
+    {
+        return $this->get('doctrine')
+            ->getRepository('GpupoCamelSpiderBundle:News');
+    }
     public function indexAction()
     {
         return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig');
@@ -13,10 +20,8 @@ class DefaultController extends Controller {
 
     public function folderAction($type, $id)
     {
-        $collection = $this->get('doctrine')
-            ->getRepository('GpupoCamelSpiderBundle:News')
+        $collection = $this->getNewsRepository()
             ->findByType($type, $id);
-
 
         return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
     }
