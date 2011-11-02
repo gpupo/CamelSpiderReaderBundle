@@ -8,7 +8,7 @@
 
 {% endset %}
 
-<h3 class="{{ cicle }}"><a href="#" class="title" id="id_{{ noticia }}">{{ noticia }}</a></h3>
+<h3 class="{{ cicle }} title"><a href="#" class="title" id="id_{{ noticia }}">{{ noticia }}</a></h3>
 <div class="content id_{{ noticia }}">
     <div class="share">
         {{ Gless.ButtonA('Imprimir', 'javascript:alert(\'Hello\')', {'icon': 'print', 'with_text': 'no'}) }}
@@ -16,7 +16,8 @@
         {{ Gless.ButtonA('Enviar', 'javascript:alert(\'Hello\')', {'icon': 'mail-closed', 'with_text': 'no'}) }}
     </div>
     <div class="txt">
-    {{ text }}
+        {{ text }}
+        <a href="javascript:$('.title #id_{{ noticia }}').trigger('click');void(0);" class="more" title="leia mais">...</a>
     </div>
 
     <div class="fonte">
