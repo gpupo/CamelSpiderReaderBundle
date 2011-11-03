@@ -20,8 +20,12 @@ class DefaultController extends Controller {
 
     public function folderAction($type, $id)
     {
+        $node = $this->get('doctrine')
+            ->getRepository('GpupoCamelSpiderBundle:' . $type)
+            ->find($id);
+
         $collection = $this->getNewsRepository()
-            ->findByType($type, $id);
+            ->findByType($type, $id)->getResult();
 
         return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
     }
