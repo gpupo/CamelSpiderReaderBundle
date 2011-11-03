@@ -6,4 +6,12 @@ GpupoCamelSpiderReaderBundle_folder:
     pattern:  /{type}/{id}
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:folder }
 
+GpupoCamelSpiderReaderBundle_print:
+    pattern:  /news/{id}/print
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:print }
+
+GpupoCamelSpiderReaderBundle_pdf:
+    pattern:  /news/{id}/pdf
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:pdf }
+
 

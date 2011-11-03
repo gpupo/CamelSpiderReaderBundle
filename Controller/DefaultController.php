@@ -2,8 +2,8 @@
 
 namespace Gpupo\CamelSpiderReaderBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Ps\PdfBundle\Annotation\Pdf;
 
 class DefaultController extends Controller {
 
@@ -15,10 +15,29 @@ class DefaultController extends Controller {
     }
     public function indexAction()
     {
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig');
+        $collection = $this->getNewsRepository()
+            ->findLatest()->getResult();
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
     }
 
-    public function folderAction($type, $id)
+    public function printAction($id)
+    {
+        $news = $this->getNewsRepository()
+            ->findOneById($id);
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:news.html.twig', array('news' => $news));
+    }
+
+    /**
+     * @Pdf()
+     */
+    public function pdfAction($id)
+    {
+        return $this->printAction($id);
+    }
+
+public function folderAction($type, $id)
     {
         $node = $this->get('doctrine')
             ->getRepository('GpupoCamelSpiderBundle:' . $type)

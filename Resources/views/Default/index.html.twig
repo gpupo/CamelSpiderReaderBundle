@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Home Page - {% endblock %}
+{% block title %}Notícias {% endblock %}
 
 {% block content %}
 <h1>Notícias</h1>
@@ -8,7 +8,7 @@
 {% if collection|default(null) %}
 <div class="tabs newsCollection">
     <ul>
-        <li><a href="#tabs-1">{{ node.name }}</a></li>
+        <li><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
     </ul>
     <div id="tabs-1" class="accordion news">
     {% set l = 0 %}

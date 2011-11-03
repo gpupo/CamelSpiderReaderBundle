@@ -3,9 +3,9 @@
 <h3 class="{{ cicle }} title"><a href="#" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
 <div class="content id_{{ news.id }}">
     <div class="share">
-        {{ Gless.ButtonA('Imprimir', 'javascript:alert(\'Hello\')', {'icon': 'print', 'with_text': 'no'}) }}
-        {{ Gless.ButtonA('Salvar', 'javascript:alert(\'Hello\')', {'icon': 'disk', 'with_text': 'no'}) }}
-        {{ Gless.ButtonA('Enviar', 'javascript:alert(\'Hello\')', {'icon': 'mail-closed', 'with_text': 'no'}) }}
+        {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_print', {'id':news.id}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
+        {{ Gless.ButtonA('Salvar notícia em PDF', path('GpupoCamelSpiderReaderBundle_pdf', {'id':news.id}), {'icon': 'disk', 'with_text': 'no', 'target': '_blank'}) }}
+        {{ Gless.ButtonA('Enviar notícia a um amigo', 'javascript:void(0)', {'icon': 'mail-closed', 'with_text': 'no'}) }}
     </div>
     <div class="txt">
         {{ news.content|raw }}
