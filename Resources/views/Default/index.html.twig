@@ -5,18 +5,17 @@
 {% block content %}
 <h1>Notícias</h1>
 
+{% if collection|default(null) %}
 <div class="tabs newsCollection">
     <ul>
         <li><a href="#tabs-1">Nome da categoria</a></li>
     </ul>
     <div id="tabs-1" class="accordion news">
-
     {% set l = 0 %}
     {% for n in collection %}
         {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'news': n,  'cicle': cycle(['even','odd'], l)} %}
     {% set l = l+1 %}
     {% endfor %}
-
 
     </div>
 </div>
@@ -51,6 +50,9 @@ jQuery(document).ready(function(){
     });
 });
 </script>
+{% else %}
+    <p>Sem notícias a exibir</p>
+{% endif %}
 {% endblock %}
 
 
