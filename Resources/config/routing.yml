@@ -3,7 +3,11 @@ GpupoCamelSpiderReaderBundle_homepage:
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:index }
 
 GpupoCamelSpiderReaderBundle_folder:
-    pattern:  /{type}/{id}
+    pattern:  /folder/{type}/{id}
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:folder }
+
+GpupoCamelSpiderReaderBundle_news:
+    pattern:  /news/{news_id}.{_format}
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:news, _format: html }
 
 
