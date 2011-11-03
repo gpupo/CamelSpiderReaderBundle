@@ -22,12 +22,12 @@ class DefaultController extends Controller {
     {
         $node = $this->get('doctrine')
             ->getRepository('GpupoCamelSpiderBundle:' . $type)
-            ->find($id);
+            ->findOneById($id);
 
         $collection = $this->getNewsRepository()
             ->findByType($type, $id)->getResult();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'collection' => $collection));
     }
 
     public function getMenuAction($type)

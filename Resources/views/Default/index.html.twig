@@ -8,7 +8,7 @@
 {% if collection|default(null) %}
 <div class="tabs newsCollection">
     <ul>
-        <li><a href="#tabs-1">{{ node.name|default('Todas') }}</a></li>
+        <li><a href="#tabs-1">{{ node.name }}</a></li>
     </ul>
     <div id="tabs-1" class="accordion news">
     {% set l = 0 %}
