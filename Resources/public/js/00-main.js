@@ -26,7 +26,8 @@ jQuery(document).ready(function(){
        navigation: false,
        icons: false,
        collapsible: true,
-       animated: true
+       animated: true,
+       autoHeight: false
     });
 
     //clique no título da news
