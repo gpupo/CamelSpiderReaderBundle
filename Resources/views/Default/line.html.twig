@@ -1,6 +1,6 @@
 {% import 'GpupoGlessBundle::macros.html.twig' as Gless %}
 
-<h3 class="{{ cicle }} title"><a href="#" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
+<h3 class="{{ cicle }} title"><a href="{{ path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}) }}" target="_blank" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
 <div class="content id_{{ news.id }}">
     <div class="share">
         {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
@@ -8,7 +8,7 @@
         {{ Gless.ButtonA('Enviar notícia a um amigo', 'javascript:void(0)', {'icon': 'mail-closed', 'with_text': 'no'}) }}
     </div>
     <div class="txt">
-        {{ news.content|raw }}
+        {{ news.contentIntro }}
         <a href="javascript:$('.title #id_{{ news.id }}').trigger('click');void(0);" class="more" title="leia mais">...</a>
     </div>
 

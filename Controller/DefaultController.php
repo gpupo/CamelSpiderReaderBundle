@@ -34,11 +34,9 @@ class DefaultController extends Controller {
             ->findOneById($news_id);
         $format = $request->get('_format', 'html');
         try {
-            $this->get('logger')->info($news->getContentToPdf());
             return $this->render(sprintf('GpupoCamelSpiderReaderBundle:Default:news.%s.twig', $format), array('news' => $news));
         } catch (ParseException $e) {
             echo $e->message();
-            return true;
         }
 
     }
