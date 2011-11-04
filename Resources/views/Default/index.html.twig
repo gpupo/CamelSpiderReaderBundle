@@ -3,7 +3,15 @@
 {% block title %}Notícias {% endblock %}
 
 {% block content %}
-<h1>Notícias</h1>
+<div class="top">
+    <div class="search pull-right">
+        <form>
+            <input type="text" name="search" placeholder="palavra chave..."/>
+            <input type="submit" value="buscar"/>
+        </form>
+    </div>
+    <h1>Notícias</h1>
+</div>
 
 {% if collection|default(null) %}
 <div class="tabs newsCollection">
