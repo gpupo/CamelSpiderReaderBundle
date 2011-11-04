@@ -1,5 +1,8 @@
-<pdf>
+<pdf Author="Funpar" Title="{{ news.title }}">
     <dynamic-page>
-        Hello {{ news.title }}!
+    <h1>{{ news.title }}</h1>
+    {{news.contentToPdf|raw }}
+
+    <p>Fonte: <a href="{{ news.uri }}">{{ news.subscription.name }}</a></p>
     </dynamic-page>
 </pdf>
