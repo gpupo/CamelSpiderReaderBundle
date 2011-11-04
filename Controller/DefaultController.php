@@ -15,6 +15,12 @@ class DefaultController extends Controller {
         return $this->get('doctrine')
             ->getRepository('GpupoCamelSpiderBundle:News');
     }
+
+    protected function getNews($news_id)
+    {
+        return $this->getNewsRepository()->findOneById($news_id);
+    }
+
     public function indexAction()
     {
         $collection = $this->getNewsRepository()
@@ -30,8 +36,7 @@ class DefaultController extends Controller {
      */
     public function newsAction($news_id, Request $request)
     {
-        $news = $this->getNewsRepository()
-            ->findOneById($news_id);
+        $news = $this->getNews($news_id);
         $format = $request->get('_format', 'html');
         try {
             return $this->render(sprintf('GpupoCamelSpiderReaderBundle:Default:news.%s.twig', $format), array('news' => $news));
@@ -40,6 +45,15 @@ class DefaultController extends Controller {
         }
 
     }
+
+    public function sendAction($news_id)
+    {
+        $news = $this->getNews($news_id);
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:news.html.twig', array('news' => $news));
+
+    }
+
+
 
     public function folderAction($type, $id)
     {

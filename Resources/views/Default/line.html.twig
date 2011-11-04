@@ -5,7 +5,7 @@
     <div class="share">
         {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
         {{ Gless.ButtonA('Salvar notícia em PDF', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'pdf'}), {'icon': 'disk', 'with_text': 'no', 'target': '_blank'}) }}
-        {{ Gless.ButtonA('Enviar notícia a um amigo', 'javascript:void(0)', {'icon': 'mail-closed', 'with_text': 'no'}) }}
+        {{ Gless.ButtonA('Enviar notícia a um amigo', path('GpupoCamelSpiderReaderBundle_news_send', {'news_id':news.id}), {'icon': 'mail-closed', 'with_text': 'no', 'class': 'news_send'}) }}
     </div>
     <div class="txt">
         {{ news.contentIntro|raw }}

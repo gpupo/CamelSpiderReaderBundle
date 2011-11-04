@@ -10,4 +10,8 @@ GpupoCamelSpiderReaderBundle_news:
     pattern:  /news/{news_id}.{_format}
     defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:news, _format: html }
 
+GpupoCamelSpiderReaderBundle_news_send:
+    pattern:  /news/{news_id}/send
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:send }
+
 
