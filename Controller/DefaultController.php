@@ -49,7 +49,15 @@ class DefaultController extends Controller {
     public function sendAction($news_id)
     {
         $news = $this->getNews($news_id);
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:news.html.twig', array('news' => $news));
+        $form = $this->createFormBuilder($news)
+            //->add('email_address', 'text')
+            ->add('title', 'text')
+            ->add('content', 'text')
+            ->getForm();
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:send.html.twig',
+            array('news' => $news, 'form' => $form->createView())
+        );
 
     }
 

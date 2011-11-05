@@ -85,7 +85,7 @@ jQuery(document).ready(function(){
 
     //send to email
     $(".ui-button.news_send").click(function(){
-        $("#send_to_email_window" ).dialog({ modal: true });
+        $("#send_to_email_window" ).dialog({ modal: true, width: 800, height: 800  });
         $("#send_to_email_window #send_to_iframe").attr("src", this.href);
         return false;
     });

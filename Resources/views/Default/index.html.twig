@@ -16,7 +16,7 @@
 {% if collection|default(null) %}
 
 <div id="send_to_email_window" title="Enviar notícia por email" style="height: 400px; min-height: 109px; width: auto; display:none;" >
-    <iframe id="send_to_iframe" src="/_blank.html"></iframe>
+    <iframe id="send_to_iframe" src="/_blank.html" width="800" height="700"></iframe>
 </div>
 
 <div class="tabs newsCollection">
@@ -35,16 +35,11 @@
 
 <script type="text/javascript" src="/js/jquery.ui.stars/jquery.ui.stars.js"></script>
 <link rel="stylesheet" href="/js/jquery.ui.stars/jquery.ui.stars.min.css"  type="text/css" media="all" />
-<script>
+{#<script>
 
 jQuery(document).ready(function(){
-    $(".ui-button.news_send").click(function(){
-        $("#send_to_email_window" ).dialog();
-        $("#send_to_email_window #send_to_iframe").attr("src", this.href);
-        return false;
-    });
 });
-</script>
+</script>#}
 {% else %}
     <p>Sem notícias a exibir</p>
 {% endif %}

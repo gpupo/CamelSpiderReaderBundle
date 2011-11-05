@@ -1,0 +1,15 @@
+{% extends '::basic.html.twig' %}
+
+
+{% block content %}
+<form action="{{ path('GpupoCamelSpiderReaderBundle_send_submit') }}" method="post" class="box pull-center">
+     <fieldset>
+         <legend>{{ legend|default('Pesquisa') }}</legend>
+         {{ form_widget(form) }}
+
+         <div class="center-center">
+            <input type="submit" value="Enviar" class="margin-2 button"/>
+        </div>
+     </fieldset>
+ </form>
+{% endblock %}
