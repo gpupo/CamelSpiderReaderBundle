@@ -1,15 +1,28 @@
 {% extends '::basic.html.twig' %}
 
 
-{% block content %}
-<form action="{{ path('GpupoCamelSpiderReaderBundle_send_submit') }}" method="post" class="box pull-center">
-     <fieldset>
-         <legend>{{ legend|default('Pesquisa') }}</legend>
-         {{ form_widget(form) }}
 
-         <div class="center-center">
+{% block content %}
+<form action="{{ path('GpupoCamelSpiderReaderBundle_send_submit') }}" method="post" class="send box pull-center">
+
+         <div class="pull-right">
             <input type="submit" value="Enviar" class="margin-2 button"/>
         </div>
-     </fieldset>
+         {{ form_widget(form) }}
  </form>
+
+<link rel="stylesheet" type="text/css" href="/plugins/CLEditor/jquery.cleditor.css" />
+<script type="text/javascript" src="/plugins/CLEditor/jquery.cleditor.js"></script>
+<style>
+    form.send { width: 700px; }
+    input { width:550px; margin:20px; }
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+      console.log('Init rich text');
+      $("#form_content").cleditor({ width: 700, height: 350 });
+  });
+</script>
+
+
 {% endblock %}

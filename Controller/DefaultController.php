@@ -51,8 +51,9 @@ class DefaultController extends Controller {
         $news = $this->getNews($news_id);
         $form = $this->createFormBuilder($news)
             //->add('email_address', 'text')
+            ->add('id', 'text')
             ->add('title', 'text')
-            ->add('content', 'text')
+            ->add('content', 'textarea')
             ->getForm();
 
         return $this->render('GpupoCamelSpiderReaderBundle:Default:send.html.twig',
