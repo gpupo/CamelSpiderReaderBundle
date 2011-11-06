@@ -5,7 +5,8 @@ namespace Gpupo\CamelSpiderReaderBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request,
     Ps\PdfBundle\Annotation\Pdf,
-    PHPPdf\Parser\Exception\ParseException;
+    PHPPdf\Parser\Exception\ParseException,
+    Gpupo\CamelSpiderReaderBundle\Entity\Send;
 
 class DefaultController extends Controller {
 
@@ -46,18 +47,60 @@ class DefaultController extends Controller {
 
     }
 
+    public function sendSubmitAction(Request $request)
+    {
+        $form = $this->getSendForm();
+        $form->bindRequest($request);
+
+        if ($form->isValid()) {
+            $from = $this->get('security.context')->getToken()->getUser()->getEmailAddress();
+            $message = \Swift_Message::newInstance()
+                ->setSubject()
+                ->setFrom($from)
+                ->setTo('recipient@example.com')
+                ->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)));
+            $this->get('mailer')->send($message);
+
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+    }
+
+    protected function getSend($news_id = null)
+    {
+        $default = array(
+                'delivery_address' => '',
+                'subject'          => '',
+                'body'             => ''
+        );
+
+        if ($news_id) {
+            $news = $this->getNews($news_id);
+            $default = array(
+                'delivery_address' => '',
+                'subject'          => $news->getTitle(),
+                'body'             => $news->getContent()
+            );
+        }
+
+        return new Send($default);
+    }
+
+    protected function getSendForm($news_id = null)
+    {
+        return $this->createFormBuilder($this->getSend($news_id))
+            ->add('delivery_address', 'email', array('label' => 'Para:'))
+            ->add('subject', 'text', array('label' => 'Título'))
+            ->add('body', 'textarea', array('label' => 'Conteúdo'))
+            ->getForm();
+    }
+
     public function sendAction($news_id)
     {
-        $news = $this->getNews($news_id);
-        $form = $this->createFormBuilder($news)
-            //->add('email_address', 'text')
-            ->add('id', 'text')
-            ->add('title', 'text')
-            ->add('content', 'textarea')
-            ->getForm();
+
+        $form = $this->getSendForm($news_id);
 
         return $this->render('GpupoCamelSpiderReaderBundle:Default:send.html.twig',
-            array('news' => $news, 'form' => $form->createView())
+            array('form' => $form->createView())
         );
 
     }

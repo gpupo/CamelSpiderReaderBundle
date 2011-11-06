@@ -16,6 +16,6 @@ GpupoCamelSpiderReaderBundle_news_send:
 
 GpupoCamelSpiderReaderBundle_send_submit:
     pattern:  /send/submit
-    defaults: { _controller: GpupoCamelSpiderReaderBundle:Send:submit }
+    defaults: { _controller: GpupoCamelSpiderReaderBundle:Default:sendSubmit }
 
 
