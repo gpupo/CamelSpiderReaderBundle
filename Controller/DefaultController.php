@@ -53,13 +53,23 @@ class DefaultController extends Controller {
         $form->bindRequest($request);
 
         if ($form->isValid()) {
-            $from = $this->get('security.context')->getToken()->getUser()->getEmailAddress();
+            $from = $this->get('security.context')->getToken()->getUser()->getEmail();
+            $form = $request->request->get('form');
+            $body = $form['body'];
+
             $message = \Swift_Message::newInstance()
-                ->setSubject()
+                ->setContentType('text/html')
+                ->setSubject($form['subject'])
                 ->setFrom($from)
-                ->setTo('recipient@example.com')
-                ->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)));
+                ->setTo('gilmarpupo@gmail.com')
+                ->setBody($this->renderView('GpupoCamelSpiderReaderBundle:Default:mail.html.twig', array('body' => $body)));
             $this->get('mailer')->send($message);
+
+            $this->get('funpar.logger')->doLog(
+                'SEND_NEWS',
+                'Enviou notícia para',
+                $this->security_context->getToken()->getUser()
+            );
 
             return $this->redirect($this->generateUrl('homepage'));
         }
