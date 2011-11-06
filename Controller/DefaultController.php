@@ -61,17 +61,25 @@ class DefaultController extends Controller {
                 ->setContentType('text/html')
                 ->setSubject($form['subject'])
                 ->setFrom($from)
-                ->setTo('gilmarpupo@gmail.com')
+                ->setTo($form['delivery_address'])
                 ->setBody($this->renderView('GpupoCamelSpiderReaderBundle:Default:mail.html.twig', array('body' => $body)));
             $this->get('mailer')->send($message);
 
+            $log = 'Email "'
+                . $from['subject']
+                . '" enviado de "'
+                . $from
+                . '" para "'
+                . $form['delivery_address']
+                . '"';
+
             $this->get('funpar.logger')->doLog(
                 'SEND_NEWS',
-                'Enviou notícia para',
-                $this->security_context->getToken()->getUser()
+                $log,
+                'me'
             );
 
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->render('GpupoCamelSpiderReaderBundle:Default:send_success.html.twig', array('from' => $from, 'log' => $log));
         }
     }
 
