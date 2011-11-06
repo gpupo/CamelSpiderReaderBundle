@@ -65,8 +65,8 @@ class DefaultController extends Controller {
                 ->setBody($this->renderView('GpupoCamelSpiderReaderBundle:Default:mail.html.twig', array('body' => $body)));
             $this->get('mailer')->send($message);
 
-            $log = 'Email "'
-                . $from['subject']
+            $log = 'Mensagem "'
+                . addslashes($form['subject'])
                 . '" enviado de "'
                 . $from
                 . '" para "'
