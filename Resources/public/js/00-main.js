@@ -67,7 +67,7 @@ jQuery(document).ready(function(){
             news_id = ui.options.name.replace('vote_','');
             console.log("News ID:"+news_id);
             //Envia o voto para o controller
-            $.post("{{ path('stars_submit') }}", {vote:{rate: value, news_id: news_id}}, function(json)
+            $.post($("#url_submit_vote").val(), {vote:{rate: value, news_id: news_id}}, function(json)
             {
                 if(json.responseCode == 200){
                     //Recebe a média de votação da news
