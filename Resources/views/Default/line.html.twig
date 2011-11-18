@@ -1,7 +1,7 @@
 {% import 'GpupoGlessBundle::macros.html.twig' as Gless %}
 
-<h3 class="{{ cicle }} title"><a href="{{ path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}) }}" target="_blank" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
-<div class="content id_{{ news.id }}">
+<h3 class="{{ cicle }} ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom title"><a href="{{ path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}) }}" target="_blank" class="title" id="id_{{ news.id }}">{{ news.title }}</a></h3>
+<div class="content id_{{ news.id }} ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
     <div class="share">
         {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
         {{ Gless.ButtonA('Salvar notícia em PDF', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'pdf'}), {'icon': 'disk', 'with_text': 'no', 'target': '_blank'}) }}

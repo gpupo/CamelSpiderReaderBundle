@@ -23,7 +23,7 @@
     <ul>
         <li><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
     </ul>
-    <div id="tabs-1" class="accordion news">
+    <div id="tabs-1" class="accordion news ui-accordion ui-widget ui-helper-reset">
     {% set l = 0 %}
     {% for n in collection %}
         {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'news': n,  'cicle': cycle(['even','odd'], l)} %}
