@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
     });
 
     /** news nav **/
-    
+
     $(".nav-news.accordion").accordion({active: 0}); // o valor de ativo indica qual dos tópicos fica aberto por padrão
 
     /** content **/
