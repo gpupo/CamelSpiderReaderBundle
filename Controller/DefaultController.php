@@ -134,16 +134,16 @@ class DefaultController extends Controller {
         $collection = $this->getNewsRepository()
             ->findByType($type, $id)->getResult();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'collection' => $collection));
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'collection' => $collection, 'folderType'=>$type));
     }
 
-    public function getMenuAction($type)
+    public function getMenuAction($type, $node, $folderType)
     {
 
         $collection = $this->get('doctrine')
             ->getRepository('GpupoCamelSpiderBundle:' . $type)
             ->findForMenu();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:menu.html.twig', array('type' => $type, 'collection'=> $collection));
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:menu.html.twig', array('type' => $type, 'collection' => $collection, 'node' => $node, 'folderType'=>$folderType));
     }
 }

@@ -1,6 +1,6 @@
 <ul>
 {% for c in collection %}
     {% set path = path('GpupoCamelSpiderReaderBundle_folder', {'type': type, 'id': c.id}) %}
-    <li{% if type == 'Category' %} class="level_{{ c.lvl }}"{% endif %}><div class="selector"><a href="{{ path }}"><div class="selector-icon"></div><span class="text">{{ c.name }}</span></a></div></li>
+    <li class="{% if type == 'Category' %}level_{{ c.lvl }}{% endif %}{% if node and folderType and type == folderType and node.id == c.id %} selected{% endif %}"><div class="selector"><a href="{{ path }}"><div class="selector-icon"></div><span class="text">{{ c.name }}</span></a></div></li>
 {% endfor %}
 </ul>
