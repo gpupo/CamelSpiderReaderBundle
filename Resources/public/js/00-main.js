@@ -3,7 +3,6 @@
 /* Inicialização do layout em todas as páginas*/
 jQuery(document).ready(function(){
     $(".tabs").tabs();
-    $(".auto.accordion").accordion();
 
     /** Show/Hide do sidebar **/
     $(".sidebar .bar").click(function() {
@@ -21,23 +20,19 @@ jQuery(document).ready(function(){
         return false;
     });
 
-    /** news **/
-    $(".news.accordion").accordion({
-       navigation: false,
-       icons: false,
-       collapsible: true,
-       animated: true,
-       autoHeight: false
-    });
+    /** news nav **/
 
-    //clique no título da news
+    $(".nav-news.accordion").accordion({active: 0}); // o valor de ativo indica qual dos tópicos fica aberto por padrão
+
+    /** content **/
     $(".news h3 a.title").click(function(){
         if($(this).parent().hasClass('ui-state-active')) {
             console.log('Clique em notícia aberta');
             if ($(this).hasClass('zoom')) {
                 console.log('recolhendo notícia');
                 $(this).removeClass('zoom');
-                $(this).blur();
+                $(this).parent().toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
+                $(this).parent().next().toggleClass("ui-accordion-content-active");
             } else {
                 console.log('Exibindo toda a notícia em '+$(this).attr('id'));
                 if ($(this).hasClass('complete')){
@@ -53,9 +48,15 @@ jQuery(document).ready(function(){
                     $(this).addClass('complete');
                 }
                 $(this).addClass('zoom');
-                return false;
             }
+        } else {
+            console.log('Clique em notícia fechada');
+            $(this).parent()
+                .toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
+                .next().addClass("ui-accordion-content-active");
         }
+
+        return false;
     });
 
     //stars
@@ -67,7 +68,7 @@ jQuery(document).ready(function(){
             news_id = ui.options.name.replace('vote_','');
             console.log("News ID:"+news_id);
             //Envia o voto para o controller
-            $.post("{{ path('stars_submit') }}", {vote:{rate: value, news_id: news_id}}, function(json)
+            $.post($("#url_submit_vote").val(), {vote:{rate: value, news_id: news_id}}, function(json)
             {
                 if(json.responseCode == 200){
                     //Recebe a média de votação da news

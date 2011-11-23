@@ -5,7 +5,7 @@
 <div class="content ui-widget-content">
     <h2 class=""><a href="{{ path('GpupoCamelSpiderReaderBundle_homepage') }}">Notícias</a></h2>
 
-    <div class="auto accordion">
+    <div class="nav-news accordion">
 
         <h3><a href="#">Categorias</a></h3>
         <div>{% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Category', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
