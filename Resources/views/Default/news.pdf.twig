@@ -1,5 +1,6 @@
 <pdf Author="Funpar" Title="{{ news.title }}">
     <dynamic-page>
+    {% include '::head.html.twig' %}
     <h1>{{ news.title }}</h1>
     {{news.contentToPdf|raw }}
 
