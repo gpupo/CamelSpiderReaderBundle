@@ -1,18 +1,24 @@
-{#
+{# Toggle sidebar inactive:
 <div class="bar pull-right">
     <a href="javascript:void(0)" class="toggle" title="Clique aqui para exibir/ocultar a barra lateral"><div class="">&nbsp;</div></a>
 </div>
 #}
+{% macro Topic(name) %}
+        <h3 class="topic">
+            <div id="lhn-recommendations-minimize" class="section-button section-minimize"></div>
+           <span>{{ name }}</span>
+        </h3>
+{% endmacro %}
 <div class="content">
     <h2 class=""><a href="{{ path('GpupoCamelSpiderReaderBundle_homepage') }}">Notícias</a></h2>
 
-    <div class="nav-news accordion ui-accordion ui-accordion-icons">
+    <div class="nav nav-news accordion ui-accordion ui-accordion-icons">
 
-        <h3 class=""><a href="#">Categorias</a></h3>
-        <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
+        {{ _self.Topic('Categorias') }}
+        <div class="container">
         {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Category', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
 
-        <h3 class=""><a href="#">Fontes</a></h3>
+        {{ _self.Topic('Fontes de conteúdo') }}
         <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
         {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
     </div>
