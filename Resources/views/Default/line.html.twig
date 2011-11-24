@@ -12,6 +12,9 @@
         <a href="javascript:$('.title #id_{{ news.id }}').trigger('click');void(0);" class="more" title="leia mais">...</a>
     </div>
 
+    <div class="date">
+        <span class="label">Data:</span>{{ news.subscription.name }}
+    </div>
     <div class="fonte">
         <span class="label">Fonte:</span> <a href="{{ news.uri }}" target="_blank">{{ news.subscription.name }}</a>
     </div>
