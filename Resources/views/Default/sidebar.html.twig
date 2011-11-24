@@ -1,16 +1,19 @@
+{#
 <div class="bar pull-right">
     <a href="javascript:void(0)" class="toggle" title="Clique aqui para exibir/ocultar a barra lateral"><div class="">&nbsp;</div></a>
 </div>
-
-<div class="content ui-widget-content">
+#}
+<div class="content">
     <h2 class=""><a href="{{ path('GpupoCamelSpiderReaderBundle_homepage') }}">Notícias</a></h2>
 
-    <div class="nav-news accordion">
+    <div class="nav-news accordion ui-accordion ui-accordion-icons">
 
-        <h3><a href="#">Categorias</a></h3>
-        <div>{% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Category', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
+        <h3 class=""><a href="#">Categorias</a></h3>
+        <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
+        {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Category', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
 
-        <h3><a href="#">Fontes</a></h3>
-        <div>{% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
+        <h3 class=""><a href="#">Fontes</a></h3>
+        <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
+        {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
     </div>
 </div>

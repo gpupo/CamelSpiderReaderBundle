@@ -4,7 +4,7 @@
 jQuery(document).ready(function(){
     $(".tabs").tabs();
 
-    /** Show/Hide do sidebar **/
+    /** Show/Hide do sidebar
     $(".sidebar .bar").click(function() {
         $(".sidebar .content").toggle('drop');
         if($("#main").hasClass("expanded")) {
@@ -19,10 +19,10 @@ jQuery(document).ready(function(){
 
         return false;
     });
-
+    **/
     /** news nav **/
 
-    $(".nav-news.accordion").accordion({active: 0}); // o valor de ativo indica qual dos tópicos fica aberto por padrão
+    //$(".nav-news.accordion").accordion({active: 0}); // o valor de ativo indica qual dos tópicos fica aberto por padrão
 
     /** content **/
     $(".news h3 a.title").click(function(){
