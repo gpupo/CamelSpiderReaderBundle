@@ -15,6 +15,10 @@
     <div class="fonte">
         <span class="label">Fonte:</span> <a href="{{ news.uri }}" target="_blank">{{ news.subscription.name }}</a>
     </div>
+    <div class="breadcrumb">
+        <span class="label">Categoria:</span> {{ news.category.getPathNamesString }}
+    </div>
+
 {# Stars #}
     <div class="bar-footer">
         <div class="feedback"></div>
