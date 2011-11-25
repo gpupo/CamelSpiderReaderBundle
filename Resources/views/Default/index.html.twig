@@ -5,8 +5,8 @@
 {% block content %}
 <div class="top">
     <div class="search pull-right">
-        <form>
-            <input type="text" name="search" placeholder="palavra chave..."/>
+        <form action="{{ path('GpupoCamelSpiderReaderBundle_search') }}" id="search_form">
+            <input type="text" name="keyword" placeholder="palavra chave..."/>
             <input type="submit" value="buscar"/>
         </form>
     </div>

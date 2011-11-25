@@ -123,7 +123,18 @@ class DefaultController extends Controller {
 
     }
 
+    /**
+     * Process search submit
+     * @param string $keyword
+     */
+    public function searchAction(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $collection = $this->getNewsRepository()
+            ->searchByKeyword($keyword)->getResult();
 
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => array('name' => 'Resultados da pesquisa por "' . $keyword . '"'), 'collection' => $collection, 'folderType'=> 'search'));
+    }
 
     public function folderAction($type, $id)
     {
