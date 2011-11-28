@@ -19,9 +19,17 @@
     <iframe id="send_to_iframe" src="/_blank.html" width="760" height="700" style="border:none" scrolling="no"></iframe>
 </div>
 <input type="hidden" id="url_submit_vote" value="{{ path('stars_submit') }}" />
-<div class="tabs newsCollection">
-    <ul>
-        <li><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
+<div class="newsCollection ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix
+    ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-tabs-selected
+        ui-state-active"><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
+        {% for child in node.getChildren %}
+        <li class="children ui-state-default ui-corner-top"><a href="{{
+            path('GpupoCamelSpiderReaderBundle_folder', {'type':
+            'Category',
+            'id': child.id}) }} ">{{ child.name }}</a></li>
+        {% endfor %}
     </ul>
     <div id="tabs-1" class="accordion news ui-accordion ui-widget ui-helper-reset">
     {% set l = 0 %}
