@@ -1,0 +1,16 @@
+<div class="info">
+        <div class="date item">
+            <span class="label">Data:</span>
+            <b>{{ news.createdAt.format('d/m/Y H:i:s') }}</b>
+        </div>
+        <div class="fonte item">
+            <span class="label">Fonte:</span>
+            <b><a href="{{ news.uri }}">{{ subscription.name }}</a></b>
+        </div>
+        <div class="breadcrumb item">
+            <span class="label">Categoria:</span>
+            <b>{{ news.category.getPathNamesString }}</b>
+        </div>
+</div>
+
+

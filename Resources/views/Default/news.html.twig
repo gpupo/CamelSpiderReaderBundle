@@ -3,7 +3,7 @@
 <h1>{{ news.title }}</h1>
 <div class="txt">
     {{ news.content|raw }}
-    <p>Fonte: <a href="{{ news.uri }}">{{ news.subscription.name }}</a></p>
-    <span class="label">Categoria:</span> {{ news.category.getPathNamesString }}
 </div>
+    {% include 'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
+            'news': news, 'subscription': news.subscription } %}
 {% endblock %}

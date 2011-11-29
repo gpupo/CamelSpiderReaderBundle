@@ -14,18 +14,9 @@
 {# Stars #}
     <div class="bar-footer">
         <div class="feedback"></div>
-    <div class="info">
-        <div class="date item">
-            <span class="label">Data:</span><b>{{ news.createdAt.format('d/m/Y H:i:s') }}</b>
-        </div>
-        <div class="fonte item">
-            <span class="label">Fonte:</span><b><a href="{{ news.uri }}" target="_blank">{{ news.subscription.name }}</a></b>
-        </div>
-        <div class="breadcrumb item">
-            <span class="label">Categoria:</span><b>{{ news.category.getPathNamesString }}</b>
-        </div>
-    </div>
-
+        {% include
+        'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
+            'news': news, 'subscription': news.subscription } %}
         <div>
             <div class="classificacao">{% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': { 'id': news.id, 'action': path('stars_submit'), 'value': news.getUserVote(app.user) } } %}</div>
             <div class="global pull-right"> {% include 'GpupoGlessBundle:Forms:stars.html.twig' with { 'options': {'id': 'average_' ~ news.id, 'label':'Classificação Global', 'value': news.getVoteAverage } } %} </div>
