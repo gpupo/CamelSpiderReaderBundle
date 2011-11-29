@@ -10,7 +10,7 @@
             <input type="submit" value="buscar"/>
         </form>
     </div>
-    <h1>Notícias</h1>
+    <h1>Notícias :: {{ node.name|default('Últimas') }}</h1>
 </div>
 
 {% if collection|default(null) %}
