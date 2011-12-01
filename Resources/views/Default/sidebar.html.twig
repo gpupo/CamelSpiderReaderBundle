@@ -20,6 +20,19 @@
 
         {{ _self.Topic('Fontes de conteúdo') }}
         <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
-        {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} %}</div>
+            {% render "GpupoCamelSpiderReaderBundle:Default:getMenu" 
+                with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} 
+            %}
+        </div>
+{#
+        {{ _self.Topic('Classificação') }}
+
+        <div class="ui-accordion-content ui-helper-reset ui-corner-bottom ui-accordion-content-active">
+            {% render "GpupoCamelSpiderReaderBundle:Default:getMenu"
+                with {'type': 'Subscription', 'node': node | default(null), 'folderType': folderType | default(null)} 
+            %}
+        </div>
+#}
+
     </div>
 </div>

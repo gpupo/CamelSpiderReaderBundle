@@ -1,9 +1,9 @@
 <pdf Author="Funpar" Title="{{ news.title }}">
     <dynamic-page>
-    {# include '::head.html.twig' #}
-    <h1>{{ news.title }}</h1>
-    {{news.contentToPdf|raw }}
-
-    <p>Fonte: <a href="{{ news.uri }}">{{ news.subscription.name }}</a></p>
+       <img src="http://{{ app.request.host ~ asset('/img/header_doc.png') }}" />
+        <h1>{{ news.title }}</h1>
+        {{news.contentToPdf|raw }}
+        {% include 'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
+                'news': news, 'subscription': news.subscription } %}
     </dynamic-page>
 </pdf>
