@@ -6,10 +6,48 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request,
     Ps\PdfBundle\Annotation\Pdf,
     PHPPdf\Parser\Exception\ParseException,
-    Gpupo\CamelSpiderReaderBundle\Entity\Send;
+    Gpupo\CamelSpiderReaderBundle\Entity\Send,
+    Gpupo\CamelSpiderBundle\Generator\News as Generator,
+    Coregen\AdminGeneratorBundle\ORM\Pager;
 
 class DefaultController extends Controller {
 
+    /**
+     * @var Coregen\AdminGeneratorBundle\Generator\Generator
+     */
+    protected $generator = null;
+
+    /**
+     * @var Coregen\AdminGeneratorBundle\ORM\Pager
+     */
+    protected $pager = null;
+
+    /**
+     * Get Pager
+     *
+     * @return Coregen\AdminGeneratorBundle\ORM\Pager
+     */
+    protected function getPager()
+    {
+        // Load the News generator class
+        if (null === $this->generator) {
+            $this->generator = new Generator();
+        }
+
+        // Loads the pager
+        if (null === $this->pager) {
+            $this->pager = $this->get('coregen.orm.pager');
+            $this->pager->setGenerator($this->generator);
+        }
+
+        // Configure the pager
+        $currentPage = $this->getRequest()->get('page', 1);
+        $this->pager->setCurrent($currentPage);
+        $this->pager->setLimit($this->generator->list->max_per_page);
+        $this->pager->setSort($this->generator->list->sort);
+
+        return $this->pager;
+    }
 
     protected function getNewsRepository()
     {
@@ -22,12 +60,23 @@ class DefaultController extends Controller {
         return $this->getNewsRepository()->findOneById($news_id);
     }
 
+
+    /**
+     * Index action
+     *
+     * @return Response
+     */
     public function indexAction()
     {
-        $collection = $this->getNewsRepository()
-            ->findLatest()->getResult();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('collection' => $collection));
+        $pager = $this->getPager();
+
+        $qb = $this->getNewsRepository()
+                ->readerQueryBuilder();
+
+        $pager->setQueryBuilder($qb);
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('pager' => $pager));
     }
 
     /**
@@ -130,10 +179,21 @@ class DefaultController extends Controller {
     public function searchAction(Request $request)
     {
         $keyword = $request->get('keyword');
-        $collection = $this->getNewsRepository()
-            ->searchByKeyword($keyword)->getResult();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => array('name' => 'Resultados da pesquisa por "' . $keyword . '"'), 'collection' => $collection, 'folderType'=> 'search'));
+        $pager = $this->getPager();
+
+        $qb = $this->getNewsRepository()
+            ->searchByKeywordQueryBuilder($keyword);
+
+        $pager->setQueryBuilder($qb);
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig',
+                array(
+                    'node' => array('name' => 'Resultados da pesquisa por "' . $keyword . '"'),
+                    'pager' => $pager,
+                    'folderType'=> 'search',
+                    'keyword' => $keyword
+                    ));
     }
 
     public function folderAction($type, $id)
@@ -142,10 +202,13 @@ class DefaultController extends Controller {
             ->getRepository('GpupoCamelSpiderBundle:' . $type)
             ->findOneById($id);
 
-        $collection = $this->getNewsRepository()
-            ->findByType($type, $id)->getResult();
+        $pager = $this->getPager();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'collection' => $collection, 'folderType'=>$type));
+        $qb = $this->getNewsRepository()
+            ->findByTypeQueryBuilder($type, $id);
+        $pager->setQueryBuilder($qb);
+
+        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'folderType'=>$type, 'pager' => $pager));
     }
 
     public function getMenuAction($type, $node, $folderType)

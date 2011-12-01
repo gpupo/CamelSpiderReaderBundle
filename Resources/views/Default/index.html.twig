@@ -12,8 +12,7 @@
     </div>
     <h1>Notícias</h1>
 </div>
-
-{% if collection|default(null) %}
+{% if pager.count > 0 %}
 
 <div id="send_to_email_window" title="Enviar notícia por email" style="height: 400px; min-height: 109px; display:none;" >
     <iframe id="send_to_iframe" src="/_blank.html" width="760" height="700" style="border:none" scrolling="no"></iframe>
@@ -21,15 +20,16 @@
 <input type="hidden" id="url_submit_vote" value="{{ path('stars_submit') }}" />
 <div class="tabs newsCollection">
     <ul>
-        <li><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
+        <li><a href="#tabs-1">{{ node.name|default('Últimas') }} ({{ pager.count }})</a></li>
     </ul>
     <div id="tabs-1" class="accordion news ui-accordion ui-widget ui-helper-reset">
     {% set l = 0 %}
-    {% for n in collection %}
+    {% for n in pager.getResults %}
         {% include 'GpupoCamelSpiderReaderBundle:Default:line.html.twig' with {'news': n,  'cicle': cycle(['even','odd'], l)} %}
     {% set l = l+1 %}
     {% endfor %}
 
+    {% include 'GpupoCamelSpiderReaderBundle:Default:_paginator.html.twig' %}
     </div>
 </div>
 
