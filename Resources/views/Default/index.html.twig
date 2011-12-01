@@ -10,7 +10,8 @@
             <input type="submit" value="buscar"/>
         </form>
     </div>
-    <h1>Notícias :: {{ node.name|default('Últimas') }}  ({{ pager.count }})</h1>
+    <h1>Notícias :: {{ node.name|default('Últimas') }}  {#({{ pager.count
+    }})#}</h1>
 </div>
 {% if pager.count > 0 %}
 
