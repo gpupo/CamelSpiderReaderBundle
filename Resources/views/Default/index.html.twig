@@ -24,15 +24,13 @@
     ui-widget-header ui-corner-all">
         <li class="ui-state-default ui-corner-top ui-tabs-selected
         ui-state-active"><a href="#tabs-1">{{ node.name|default('Últimas') }}</a></li>
-        {% if node|default(null) %}
-            {% if node.getChildren is defined %}
-                {% for child in node.getChildren %}
-                <li class="children ui-state-default ui-corner-top"><a href="{{
-                    path('GpupoCamelSpiderReaderBundle_folder', {'type':
-                    'Category',
-                'id': child.id}) }} ">{{ child.name }}</a></li>
-                {% endfor %}
-            {% endif %}
+        {% if ( node|default(null) and node.getChildren is defined ) %}
+            {% for child in node.getChildren %}
+            <li class="children ui-state-default ui-corner-top"><a href="{{
+                path('GpupoCamelSpiderReaderBundle_folder', {'type':
+                'Category',
+            'id': child.id}) }} ">{{ child.name }}</a></li>
+            {% endfor %}
         {% endif %}
     </ul>
     <div id="tabs-1" class="accordion news ui-accordion ui-widget ui-helper-reset">
