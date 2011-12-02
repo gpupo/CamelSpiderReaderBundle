@@ -14,7 +14,14 @@
     </div>
 {# Stars #}
     <div class="bar-footer">
-       <div class="classificacao item">
+
+        <div class="share item">
+            {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
+            {{ Gless.ButtonA('Salvar notícia em PDF', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'pdf'}), {'icon': 'disk', 'with_text': 'no', 'target': '_blank'}) }}
+            {{ Gless.ButtonA('Enviar notícia a um amigo', path('GpupoCamelSpiderReaderBundle_news_send', {'news_id':news.id}), {'icon': 'mail-closed', 'with_text': 'no', 'class': 'news_send'}) }}
+        </div>
+
+        <div class="classificacao item">
             {% include 'GpupoGlessBundle:Forms:stars.html.twig'
                 with { 'options': { 'id': news.id, 'action': path('stars_submit'), 'value': news.getUserVote(app.user) } } %}
         </div>
@@ -23,13 +30,6 @@
             <span class="label">Fonte:</span>
             <b><a href="{{ news.uri }}">{{ news.subscription.name }}</a></b>
         </div>
-
-        <div class="share item">
-            {{ Gless.ButtonA('Imprimir notícia (nova página)', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}), {'icon': 'print', 'with_text': 'no', 'target': '_blank'}) }}
-            {{ Gless.ButtonA('Salvar notícia em PDF', path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'pdf'}), {'icon': 'disk', 'with_text': 'no', 'target': '_blank'}) }}
-            {{ Gless.ButtonA('Enviar notícia a um amigo', path('GpupoCamelSpiderReaderBundle_news_send', {'news_id':news.id}), {'icon': 'mail-closed', 'with_text': 'no', 'class': 'news_send'}) }}
-        </div>
-
         <div class="global item"> 
             {% include 'GpupoGlessBundle:Forms:stars.html.twig'
                 with { 'options': {'id': 'average_' ~ news.id,
