@@ -1,31 +1,39 @@
 {% block paginator %}
-
+{% import 'GpupoGlessBundle::macros.html.twig' as Gless %}
 {% if pager.haveToPaginate %}
-    {% if folderType == 'search' %}
+    {% if (folderType is defined and folderType == 'search') %}
         {% set query = '?keyword=' ~ keyword ~ '&page=' %}
     {% else %}
         {% set query = '?page=' %}
     {% endif %}
                 <div class="pagination">
-                    <ul>
-    {% if pager.isFirstPage %}
-                        <li class="prev disabled" title="{% trans %}First Page{% endtrans %}"><a href="#">&lArr;</a></li>
-                        <li class="prev disabled" title="{% trans %}Previous Page{% endtrans %}"><a href="#">&larr;</a></li>
-    {% else %}
-                        <li class="prev" title="{% trans %}First Page{% endtrans %}"><a href="{{ query }}1">&lArr;</a></li>
-                        <li class="prev" title="{% trans %}Last Page{% endtrans %}"><a href="{{ query }}{{ pager.previousPage }}">&larr;</a></li>
+    {% if not pager.isFirstPage|default(null) %}
+                        {{ Gless.ButtonA('First', query ~ '1' ,
+                            {'icon':'seek-first', 'with_text': 'yes'}) }}
+                        {{ Gless.ButtonA('Previous', query ~
+                        pager.previousPage, {'icon':'seek-prev',
+                        'with_text': 'yes'}) }}
     {% endif %}
                         {% for page in pager.rangeToPaginate %}
-                        <li class="{% if pager.currentPage == page %}active{% endif %}"><a href="{{ query }}{{ page }}">{{ page }}</a></li>
+                            {% if pager.currentPage == page %}
+                                {% set class = 'active selected' %}
+                            {% else %}
+                                {% set class = '' %}    
+                            {% endif %}    
+
+                            {{ Gless.ButtonA( page, query ~ page,
+                                {'class': 'page ' ~ class, 'with_icon': 'no'}) 
+                            }}
+
                         {% endfor %}
-    {% if pager.isLastPage %}
-                        <li class="next disabled" title="{% trans %}Next Page{% endtrans %}"><a href="#">&rarr;</a></li>
-                        <li class="next disabled" title="{% trans %}Last Page{% endtrans %}"><a href="#">&rArr;</a></li>
-    {% else %}
-                        <li class="next" title="{% trans %}Next Page{% endtrans %}"><a href="{{ query }}{{ pager.nextPage }}">&rarr;</a></li>
-                        <li class="next" title="{% trans %}Last Page{% endtrans %}"><a href="{{ query }}{{ pager.lastPage }}">&rArr;</a></li>
+    {% if not pager.isLastPage|default(null) %}
+                        {{ Gless.ButtonA('Next', query ~
+                            pager.nextPage , {'icon':'seek-next',
+                            'position': 'secondary'}) }}
+                        {{ Gless.ButtonA('Last', query ~
+                            pager.lastPage, {'icon':'seek-end',
+                            'position': 'secondary'}) }}
     {% endif %}
-                    </ul>
                 </div>
 {% endif %}
 
