@@ -2,7 +2,7 @@
 
 <h3 class="{{ cicle }} ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom title">
     <a href="{{ path('GpupoCamelSpiderReaderBundle_news', {'news_id':news.id, '_format': 'html'}) }}" target="_blank" class="title" id="id_{{ news.id }}">
-        <span class="date">{{ news.createdAt.format('d/m/Y') }} -
+        <span class="date">{{ news.date.format('d/m/Y') }} -
         </span><em>{{ news.title }}</em>
         <a href="{{ news.uri }}" target="_blank" class="entry-original"></a>
     </a>
@@ -30,7 +30,7 @@
             <span class="label">Fonte:</span>
             <b><a href="{{ news.uri }}">{{ news.subscription.name }}</a></b>
         </div>
-        <div class="global item"> 
+        <div class="global item">
             {% include 'GpupoGlessBundle:Forms:stars.html.twig'
                 with { 'options': {'id': 'average_' ~ news.id,
                 'label':'Geral:', 'value': news.getVoteAverage } } %}
