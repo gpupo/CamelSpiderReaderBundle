@@ -76,7 +76,10 @@ class DefaultController extends Controller {
 
         $pager->setQueryBuilder($qb);
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('pager' => $pager));
+        return $this->render(
+            'GpupoCamelSpiderReaderBundle:Default:index.html.twig',
+            array('pager' => $pager)
+        );
     }
 
     /**
