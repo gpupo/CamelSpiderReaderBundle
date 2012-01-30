@@ -92,7 +92,13 @@ class DefaultController extends Controller {
         $news = $this->getNews($news_id);
         $format = $request->get('_format', 'html');
         try {
-            return $this->render(sprintf('GpupoCamelSpiderReaderBundle:Default:news.%s.twig', $format), array('news' => $news));
+            return $this->render(
+                sprintf(
+                    'GpupoCamelSpiderReaderBundle:Default:news.%s.twig',
+                    $format
+                ),
+                array('news' => $news)
+            );
         } catch (ParseException $e) {
             echo $e->message();
         }
@@ -114,7 +120,11 @@ class DefaultController extends Controller {
                 ->setSubject($form['subject'])
                 ->setFrom($from)
                 ->setTo($form['delivery_address'])
-                ->setBody($this->renderView('GpupoCamelSpiderReaderBundle:Default:mail.html.twig', array('body' => $body)));
+                ->setBody(
+                    $this->renderView(
+                        'GpupoCamelSpiderReaderBundle:Default:mail.html.twig',
+                        array('body' => $body
+                    )));
             $this->get('mailer')->send($message);
 
             $log = 'Mensagem "'
@@ -131,7 +141,10 @@ class DefaultController extends Controller {
                 'me'
             );
 
-            return $this->render('GpupoCamelSpiderReaderBundle:Default:send_success.html.twig', array('from' => $from, 'log' => $log));
+            return $this->render(
+                'GpupoCamelSpiderReaderBundle:Default:send_success.html.twig',
+                array('from' => $from, 'log' => $log)
+            );
         }
     }
 
@@ -169,10 +182,10 @@ class DefaultController extends Controller {
 
         $form = $this->getSendForm($news_id);
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:send.html.twig',
+        return $this->render(
+            'GpupoCamelSpiderReaderBundle:Default:send.html.twig',
             array('form' => $form->createView())
         );
-
     }
 
     /**
@@ -196,7 +209,8 @@ class DefaultController extends Controller {
                     'pager' => $pager,
                     'folderType'=> 'search',
                     'keyword' => $keyword
-                    ));
+                )
+            );
     }
 
     public function folderAction($type, $id)
@@ -211,7 +225,10 @@ class DefaultController extends Controller {
             ->findByTypeQueryBuilder($type, $id);
         $pager->setQueryBuilder($qb);
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:index.html.twig', array('node' => $node, 'folderType'=>$type, 'pager' => $pager));
+        return $this->render(
+            'GpupoCamelSpiderReaderBundle:Default:index.html.twig',
+            array('node' => $node, 'folderType'=>$type, 'pager' => $pager)
+        );
     }
 
     public function getMenuAction($type, $node, $folderType)

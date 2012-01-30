@@ -1,8 +1,11 @@
 {% extends '::print.html.twig' %}
 {% block content %}
+<style>
+    .subscription.word { background-color: yellow; }
+</style>
 <h1>{{ news.title }}</h1>
 <div class="txt">
-    {{ news.content|raw }}
+    {{ news.contentHighlights|raw }}
 </div>
     {% include 'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
             'news': news, 'subscription': news.subscription } %}
