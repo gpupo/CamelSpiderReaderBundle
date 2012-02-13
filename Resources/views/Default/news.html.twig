@@ -5,7 +5,7 @@
 </style>
 <h1>{{ news.title }}</h1>
 <div class="txt">
-    {{ news.contentHighlights|raw }}
+    {{ news.content|raw }}
 </div>
     {% include 'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
             'news': news, 'subscription': news.subscription } %}
