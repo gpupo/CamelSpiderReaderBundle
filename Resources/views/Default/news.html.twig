@@ -4,8 +4,14 @@
     .subscription.word { background-color: yellow; }
 </style>
 <h1>{{ news.title }}</h1>
+
 <div class="txt">
+{% if highlights|default(false) == 'true' %} 
+////
+    {{ news.contentHighlights|raw }}
+{% else %}
     {{ news.content|raw }}
+{% endif %}
 </div>
     {% include 'GpupoCamelSpiderReaderBundle:Default:_info.html.twig' with {
             'news': news, 'subscription': news.subscription } %}

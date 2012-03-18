@@ -97,12 +97,14 @@ class DefaultController extends Controller {
                     'GpupoCamelSpiderReaderBundle:Default:news.%s.twig',
                     $format
                 ),
-                array('news' => $news)
+                array(
+                    'news'       => $news,
+                    'highlights' => $request->query->get('highlights', 'false'),
+                )
             );
         } catch (ParseException $e) {
             echo $e->message();
         }
-
     }
 
     public function sendSubmitAction(Request $request)
@@ -238,6 +240,14 @@ class DefaultController extends Controller {
             ->getRepository('GpupoCamelSpiderBundle:' . $type)
             ->findForMenu();
 
-        return $this->render('GpupoCamelSpiderReaderBundle:Default:menu.html.twig', array('type' => $type, 'collection' => $collection, 'node' => $node, 'folderType'=>$folderType));
+        return $this->render(
+            'GpupoCamelSpiderReaderBundle:Default:menu.html.twig',
+            array(
+                'type'       => $type,
+                'collection' => $collection,
+                'node'       => $node,
+                'folderType' =>$folderType
+            )
+        );
     }
 }
