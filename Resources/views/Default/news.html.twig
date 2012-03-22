@@ -7,7 +7,6 @@
 
 <div class="txt">
 {% if highlights|default(false) == 'true' %} 
-////
     {{ news.contentHighlights|raw }}
 {% else %}
     {{ news.content|raw }}

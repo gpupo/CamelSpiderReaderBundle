@@ -113,7 +113,10 @@ class DefaultController extends Controller {
         $form->bindRequest($request);
 
         if ($form->isValid()) {
-            $from = $this->get('security.context')->getToken()->getUser()->getEmail();
+            $from = $this->get('security.context')
+                ->getToken()
+                ->getUser()
+                ->getEmail();
             $form = $request->request->get('form');
             $body = $form['body'];
 
@@ -127,21 +130,29 @@ class DefaultController extends Controller {
                         'GpupoCamelSpiderReaderBundle:Default:mail.html.twig',
                         array('body' => $body
                     )));
-            $this->get('mailer')->send($message);
+            $this->get('logger')->info('Try send mail to ' . $form['delivery_address']);
+            try {
+                $send = $this->get('mailer')->send($message);
 
-            $log = 'Mensagem "'
-                . addslashes($form['subject'])
-                . '" enviado de "'
-                . $from
-                . '" para "'
-                . $form['delivery_address']
-                . '"';
+                $this->get('logger')->info('Send status = ' . (int) $send);
 
-            $this->get('funpar.logger')->doLog(
-                'SEND_NEWS',
-                $log,
-                'me'
-            );
+                $log = 'Mensagem "'
+                    . addslashes($form['subject'])
+                    . '" enviado de "<b>'
+                    . $from
+                    . '</b>" para "<b>'
+                    . $form['delivery_address']
+                    . '</b>"';
+
+                $this->get('funpar.logger')->doLog(
+                    'SEND_NEWS',
+                    $log,
+                    'me'
+                );
+
+            } catch (Swift_TransportException $e) {
+                $log = $e->getMessage();
+            }
 
             return $this->render(
                 'GpupoCamelSpiderReaderBundle:Default:send_success.html.twig',
