@@ -175,6 +175,11 @@ class DefaultController extends Controller {
                 'delivery_address' => '',
                 'subject'          => $news->getTitle(),
                 'body'             => $news->getContent()
+                    . '<p>Fonte: <b><a href="'
+                    . $news->getUri()
+                    . '">'
+                    . $news->getSubscription()->getName()
+                    . '</a></b></p>'
             );
         }
 
